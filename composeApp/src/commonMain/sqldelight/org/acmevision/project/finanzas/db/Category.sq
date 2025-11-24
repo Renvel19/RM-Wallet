@@ -1,0 +1,18 @@
+CREATE TABLE categoryEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    iconName TEXT NOT NULL,
+    colorHex TEXT NOT NULL,
+    type TEXT NOT NULL,
+    parentId TEXT,
+
+    -- La clave foránea apunta a la misma tabla (para subcategorías)
+    FOREIGN KEY (parentId) REFERENCES categoryEntity(id) ON DELETE CASCADE
+);
+
+insertCategory:
+INSERT OR REPLACE INTO categoryEntity(id, name, iconName, colorHex, type, parentId)
+VALUES (?, ?, ?, ?, ?, ?);
+
+getCategoryById:
+SELECT * FROM categoryEntity WHERE id = ?;

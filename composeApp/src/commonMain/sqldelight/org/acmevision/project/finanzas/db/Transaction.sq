@@ -1,0 +1,28 @@
+CREATE TABLE transactionEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    amount REAL NOT NULL,
+    date TEXT NOT NULL,
+    note TEXT,
+    type TEXT NOT NULL,
+
+    categoryId TEXT,
+    accountId TEXT NOT NULL,
+    targetAccountId TEXT,
+
+    -- Referencias a otras tablas. El nombre debe ser EXACTO (ej: accountEntity)
+    FOREIGN KEY (accountId) REFERENCES accountEntity(id) ON DELETE RESTRICT,
+    FOREIGN KEY (targetAccountId) REFERENCES accountEntity(id) ON DELETE RESTRICT,
+    FOREIGN KEY (categoryId) REFERENCES categoryEntity(id) ON DELETE RESTRICT
+);
+
+insertTransaction:
+INSERT INTO transactionEntity(
+    id, amount, date, note, type, categoryId, accountId, targetAccountId
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+getAllTransactions:
+SELECT * FROM transactionEntity
+ORDER BY date DESC;
+
+getTransactionsForBudget:
+SELECT * FROM transactionEntity WHERE date BETWEEN ? AND ? AND type = 'EXPENSE';

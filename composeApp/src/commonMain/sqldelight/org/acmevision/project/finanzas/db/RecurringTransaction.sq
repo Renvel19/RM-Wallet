@@ -1,0 +1,22 @@
+CREATE TABLE recurringTransactionEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    amount REAL NOT NULL,
+    note TEXT,
+    type TEXT NOT NULL,
+    interval TEXT NOT NULL,
+    nextExecutionDate TEXT NOT NULL,
+    isActive INTEGER AS kotlin.Boolean NOT NULL,
+
+    categoryId TEXT,
+    accountId TEXT NOT NULL,
+    targetAccountId TEXT,
+
+    FOREIGN KEY (accountId) REFERENCES accountEntity(id) ON DELETE CASCADE,
+    FOREIGN KEY (targetAccountId) REFERENCES accountEntity(id) ON DELETE CASCADE,
+    FOREIGN KEY (categoryId) REFERENCES categoryEntity(id) ON DELETE SET NULL
+);
+
+insertRecurringTransaction:
+INSERT INTO recurringTransactionEntity(
+    id, amount, note, type, interval, nextExecutionDate, isActive, categoryId, accountId, targetAccountId
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);

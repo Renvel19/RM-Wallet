@@ -13,5 +13,5 @@ fun initKoin(config: KoinAppDeclaration? = null) {
 
 // Aquí definiremos tus ViewModels y Repositorios más adelante
 val appModule = module {
-    // ejemplo: viewModelOf(::HomeViewModel)
+    databaseModule
 }

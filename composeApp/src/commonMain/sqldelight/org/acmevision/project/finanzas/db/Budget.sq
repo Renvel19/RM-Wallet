@@ -1,0 +1,16 @@
+CREATE TABLE budgetGoalEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    categoryId TEXT NOT NULL,
+    limitAmount REAL NOT NULL,
+    periodYear INTEGER NOT NULL,
+    periodMonth INTEGER NOT NULL,
+
+    FOREIGN KEY (categoryId) REFERENCES categoryEntity(id) ON DELETE CASCADE
+);
+
+insertBudgetGoal:
+INSERT OR REPLACE INTO budgetGoalEntity(id, categoryId, limitAmount, periodYear, periodMonth)
+VALUES (?, ?, ?, ?, ?);
+
+getGoalsByPeriod:
+SELECT * FROM budgetGoalEntity WHERE periodYear = ? AND periodMonth = ?;
