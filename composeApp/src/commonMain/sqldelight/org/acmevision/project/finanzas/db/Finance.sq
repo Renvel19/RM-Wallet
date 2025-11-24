@@ -1,0 +1,32 @@
+-- Finance.sq
+
+-- 1. Definición de la Tabla
+CREATE TABLE accountEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL, -- Guardaremos el ENUM como texto
+    currentBalance REAL NOT NULL,
+    creditLimit REAL,
+    cutoffDay INTEGER
+);
+
+-- 2. Consultas (Queries)
+-- SQLDelight generará una función en Kotlin por cada query con nombre
+
+insertAccount:
+INSERT OR REPLACE INTO accountEntity(id, name, type, currentBalance, creditLimit, cutoffDay)
+VALUES (?, ?, ?, ?, ?, ?);
+
+getAllAccounts:
+SELECT * FROM accountEntity;
+
+getAccountById:
+SELECT * FROM accountEntity WHERE id = ?;
+
+updateBalance:
+UPDATE accountEntity
+SET currentBalance = ?
+WHERE id = ?;
+
+deleteAccount:
+DELETE FROM accountEntity WHERE id = ?;
